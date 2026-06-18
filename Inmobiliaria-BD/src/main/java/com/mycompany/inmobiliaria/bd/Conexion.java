@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author maria
  */
 public class Conexion {
-      private static String url = "jdbc:mariadb://localhost:3306/dreamprop inmobiliaria";
+      private static String url = "jdbc:mariadb://localhost:3306/dreamprop-inmobiliaria";
     private static String usuario = "root";
     private static String password = "";
     private static Connection conexion = null;
