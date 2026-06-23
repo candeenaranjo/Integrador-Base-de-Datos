@@ -18,7 +18,20 @@ public class ContratoData extends javax.swing.JFrame {
     public ContratoData() {
         initComponents();
     }
-
+    private int idPropiedadSeleccionada;
+    private float valorMensualPropiedad;
+    private long dniInquilino;
+    private long dniEscribano;
+    private String nroMatricula;
+    public ContratoData(int idPropiedadSeleccionada, float valorMensualPropiedad,
+        long dniInquilino, long dniEscribano, String nroMatricula) {
+            initComponents();
+            this.idPropiedadSeleccionada = idPropiedadSeleccionada;
+            this.valorMensualPropiedad = valorMensualPropiedad;
+            this.dniInquilino = dniInquilino;
+            this.dniEscribano = dniEscribano;
+            this.nroMatricula = nroMatricula;
+}
     //aca hay que cargar las tablas con los contratos de la base de datos
      private void cargarTablaContatos() {}
     /**
