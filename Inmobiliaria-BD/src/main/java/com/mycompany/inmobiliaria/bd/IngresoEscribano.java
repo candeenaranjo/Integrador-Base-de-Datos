@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.inmobiliaria.bd;
 
@@ -8,13 +8,25 @@ package com.mycompany.inmobiliaria.bd;
  *
  * @author maria
  */
-public class IngresoEscribano extends javax.swing.JPanel {
+public class IngresoEscribano extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IngresoEscribano.class.getName());
 
     /**
      * Creates new form IngresoEscribano
      */
+    private int idPropiedadSeleccionada;
+    private float valorMensualPropiedad;
+    private long dniInquilino;
+    
     public IngresoEscribano() {
         initComponents();
+    }
+    public IngresoEscribano(int idPropiedadSeleccionada, float valorMensualPropiedad, long dniInquilino) {
+        initComponents();
+        this.idPropiedadSeleccionada = idPropiedadSeleccionada;
+        this.valorMensualPropiedad = valorMensualPropiedad;
+        this.dniInquilino = dniInquilino;
     }
 
     /**
@@ -26,6 +38,7 @@ public class IngresoEscribano extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -39,68 +52,81 @@ public class IngresoEscribano extends javax.swing.JPanel {
         textNroMatriculaEscr4 = new javax.swing.JTextField();
         textTelofonoEscr = new javax.swing.JTextField();
         btnCargaEscribano = new javax.swing.JButton();
+        btnEcribanoExistente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Nuevo Escribano");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ingresar Datos del Escribano");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         jLabel4.setBackground(new java.awt.Color(204, 204, 204));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nro de Matricula:");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, 20));
 
         jLabel3.setBackground(new java.awt.Color(204, 204, 204));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre y  Apellido:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, 20));
 
         jLabel5.setBackground(new java.awt.Color(204, 204, 204));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Direccion:");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 70, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 70, 20));
 
         jLabel6.setBackground(new java.awt.Color(204, 204, 204));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Telefono/s:");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, -1, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, -1, 20));
 
         jLabel7.setBackground(new java.awt.Color(204, 204, 204));
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("DNI:");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, -1, 20));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, -1, 20));
 
         textDniEscribano.addActionListener(this::textDniEscribanoActionPerformed);
-        add(textDniEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 250, -1));
+        jPanel1.add(textDniEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 250, -1));
 
         textNombreEscribano.addActionListener(this::textNombreEscribanoActionPerformed);
-        add(textNombreEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 250, -1));
+        jPanel1.add(textNombreEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 250, -1));
 
         textDireccionEscribano.addActionListener(this::textDireccionEscribanoActionPerformed);
-        add(textDireccionEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 250, -1));
+        jPanel1.add(textDireccionEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 250, -1));
 
         textTelefonoEscr2.addActionListener(this::textTelefonoEscr2ActionPerformed);
-        add(textTelefonoEscr2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 250, -1));
+        jPanel1.add(textTelefonoEscr2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 250, -1));
 
         textNroMatriculaEscr4.addActionListener(this::textNroMatriculaEscr4ActionPerformed);
-        add(textNroMatriculaEscr4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 250, -1));
+        jPanel1.add(textNroMatriculaEscr4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 250, -1));
 
         textTelofonoEscr.addActionListener(this::textTelofonoEscrActionPerformed);
-        add(textTelofonoEscr, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 250, -1));
+        jPanel1.add(textTelofonoEscr, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 250, -1));
 
-        btnCargaEscribano.setText("CargarEscribano");
-        add(btnCargaEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
+        btnCargaEscribano.setText("Cargar Escribano");
+        btnCargaEscribano.addActionListener(this::btnCargaEscribanoActionPerformed);
+        jPanel1.add(btnCargaEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+
+        btnEcribanoExistente.setText("Escribano Existente");
+        jPanel1.add(btnEcribanoExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/fondoborroso 1.png"))); // NOI18N
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, -90, 550, 610));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, -90, 550, 610));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void textDniEscribanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDniEscribanoActionPerformed
@@ -127,9 +153,46 @@ public class IngresoEscribano extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_textTelofonoEscrActionPerformed
 
+    private void btnCargaEscribanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaEscribanoActionPerformed
+        // TODO add your handling code here:
+        //aca hay que hacer lo mismo que en inquilino
+        /*
+        Aca tenemos que insetar en persona
+        luego en telefonos
+        luego en escribano
+        y por ultimo insertar toda la informacion en contrato
+        despues hay que actualizar a que la pripiedad ya fue alquilada
+        */
+    }//GEN-LAST:event_btnCargaEscribanoActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new IngresoEscribano().setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargaEscribano;
+    private javax.swing.JButton btnEcribanoExistente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -137,6 +200,7 @@ public class IngresoEscribano extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField textDireccionEscribano;
     private javax.swing.JTextField textDniEscribano;
     private javax.swing.JTextField textNombreEscribano;

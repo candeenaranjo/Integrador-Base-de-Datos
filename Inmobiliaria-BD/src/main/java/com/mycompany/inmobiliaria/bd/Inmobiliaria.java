@@ -4,7 +4,6 @@
  */
 package com.mycompany.inmobiliaria.bd;
 
-
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
@@ -23,7 +22,6 @@ public class Inmobiliaria extends javax.swing.JFrame {
         initComponents();
     }
 
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,6 +31,12 @@ public class Inmobiliaria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Escritorio = new javax.swing.JPanel();
+        btnVentas = new javax.swing.JButton();
+        btnPropietarios = new javax.swing.JButton();
+        btnEscribano = new javax.swing.JButton();
+        btnInquilino = new javax.swing.JButton();
+        btnCompradores = new javax.swing.JButton();
         btnAlquileres = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
@@ -40,19 +44,65 @@ public class Inmobiliaria extends javax.swing.JFrame {
         setTitle("Dream Prop - Sistema Inmobiliaria");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Escritorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnVentas.setText("VENTAS");
+        btnVentas.addActionListener(this::btnVentasActionPerformed);
+        Escritorio.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 100, -1));
+
+        btnPropietarios.setText("Propietarios");
+        Escritorio.add(btnPropietarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, -1, -1));
+
+        btnEscribano.setText("Escribanos");
+        btnEscribano.addActionListener(this::btnEscribanoActionPerformed);
+        Escritorio.add(btnEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 500, -1, -1));
+
+        btnInquilino.setText("Inquilinos");
+        btnInquilino.addActionListener(this::btnInquilinoActionPerformed);
+        Escritorio.add(btnInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, -1, -1));
+
+        btnCompradores.setText("Compradores");
+        Escritorio.add(btnCompradores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 500, -1, -1));
+
         btnAlquileres.setText("ALQUILERES");
         btnAlquileres.addActionListener(this::btnAlquileresActionPerformed);
-        getContentPane().add(btnAlquileres, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, -1, -1));
+        Escritorio.add(btnAlquileres, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 100, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/fondo2.png"))); // NOI18N
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 580));
+        Escritorio.add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 580));
+
+        getContentPane().add(Escritorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVentasActionPerformed
+
     private void btnAlquileresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlquileresActionPerformed
         // TODO add your handling code here:
+        Alquileres ventanaAlquileres = new Alquileres();
+        ventanaAlquileres.setLocationRelativeTo(null);
+        ventanaAlquileres.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAlquileresActionPerformed
+
+    private void btnEscribanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscribanoActionPerformed
+        // TODO add your handling code here:
+        Escribanos ventanaEscribanos = new Escribanos();
+        ventanaEscribanos.setLocationRelativeTo(null);
+        ventanaEscribanos.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEscribanoActionPerformed
+
+    private void btnInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinoActionPerformed
+        // TODO add your handling code here:
+        Inquilinos ventanaInquilinos = new Inquilinos();
+        ventanaInquilinos.setLocationRelativeTo(null);
+        ventanaInquilinos.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnInquilinoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,7 +130,13 @@ public class Inmobiliaria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Escritorio;
     private javax.swing.JButton btnAlquileres;
+    private javax.swing.JButton btnCompradores;
+    private javax.swing.JButton btnEscribano;
+    private javax.swing.JButton btnInquilino;
+    private javax.swing.JButton btnPropietarios;
+    private javax.swing.JButton btnVentas;
     private javax.swing.JLabel fondo;
     // End of variables declaration//GEN-END:variables
 }

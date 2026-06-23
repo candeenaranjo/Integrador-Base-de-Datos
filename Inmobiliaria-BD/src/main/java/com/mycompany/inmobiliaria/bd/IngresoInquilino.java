@@ -1,18 +1,33 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.inmobiliaria.bd;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author maria
  */
-public class IngresoInquilino extends javax.swing.JPanel {
+public class IngresoInquilino extends javax.swing.JFrame {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IngresoInquilino.class.getName());
 
     /**
      * Creates new form IngresoInquilino
      */
+    private int idPropiedadSeleccionada;
+    private float valorMensualPropiedad;
+
+    public IngresoInquilino(int idProp, float valorProp) {
+        initComponents();
+        this.idPropiedadSeleccionada = idProp;
+        this.valorMensualPropiedad = valorProp;
+    }
+
     public IngresoInquilino() {
         initComponents();
     }
@@ -26,6 +41,7 @@ public class IngresoInquilino extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -37,61 +53,73 @@ public class IngresoInquilino extends javax.swing.JPanel {
         textDniInquilino = new javax.swing.JTextField();
         textTelefonoInquilino1 = new javax.swing.JTextField();
         btnCargarInquilino = new javax.swing.JButton();
+        btnInquilinoExistente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Nuevo Inquilino");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ingresar Datos del Inquilino");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(204, 204, 204));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre y  Apellido:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, -1, -1));
 
         jLabel4.setBackground(new java.awt.Color(204, 204, 204));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("DNI:");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, 20));
 
         jLabel5.setBackground(new java.awt.Color(204, 204, 204));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Direccion:");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 70, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 70, 20));
 
         jLabel6.setBackground(new java.awt.Color(204, 204, 204));
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Telefono/s:");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, -1, 20));
 
         textNombreInquilino.addActionListener(this::textNombreInquilinoActionPerformed);
-        add(textNombreInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 230, -1));
+        jPanel1.add(textNombreInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 230, -1));
 
         textDireccionInquilino.addActionListener(this::textDireccionInquilinoActionPerformed);
-        add(textDireccionInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 230, -1));
+        jPanel1.add(textDireccionInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 230, -1));
 
         textTelefonoInquilino.addActionListener(this::textTelefonoInquilinoActionPerformed);
-        add(textTelefonoInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 230, -1));
+        jPanel1.add(textTelefonoInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 230, -1));
 
         textDniInquilino.addActionListener(this::textDniInquilinoActionPerformed);
-        add(textDniInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 230, 20));
+        jPanel1.add(textDniInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 230, 20));
 
         textTelefonoInquilino1.addActionListener(this::textTelefonoInquilino1ActionPerformed);
-        add(textTelefonoInquilino1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 230, -1));
+        jPanel1.add(textTelefonoInquilino1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, 230, -1));
 
         btnCargarInquilino.setText("Cargar Inquilino");
         btnCargarInquilino.addActionListener(this::btnCargarInquilinoActionPerformed);
-        add(btnCargarInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, -1, -1));
+        jPanel1.add(btnCargarInquilino, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
+
+        btnInquilinoExistente.setText("Inquilino Existente");
+        jPanel1.add(btnInquilinoExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/fondoborroso 1.png"))); // NOI18N
         jLabel1.setText("  ");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, -100, 550, 630));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, -100, 550, 630));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void textNombreInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreInquilinoActionPerformed
@@ -110,23 +138,98 @@ public class IngresoInquilino extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_textDniInquilinoActionPerformed
 
-    private void btnCargarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarInquilinoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCargarInquilinoActionPerformed
-
     private void textTelefonoInquilino1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textTelefonoInquilino1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textTelefonoInquilino1ActionPerformed
 
+    private void btnCargarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarInquilinoActionPerformed
+        // TODO add your handling code here
+        String dni = textDniInquilino.getText();
+        String nombre = textNombreInquilino.getText();
+        String direccion = textDireccionInquilino.getText();
+        String telefono = textTelefonoInquilino1.getText();
+
+        if (dni.isEmpty() || nombre.isEmpty() || direccion.isEmpty() || telefono.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos del formulario.", "Faltan datos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            Connection con = Conexion.getConexion();
+            // Desactivamos el autocommit para manejar la transacción manualmente
+            con.setAutoCommit(false);
+
+            // Insertamos primero en la tabla Persona
+            String sqlPersona = "INSERT INTO persona (DNI_P, NomyApe_P, Direccion_P, Tipo_P) VALUES (?, ?, ?, 'Inquilino')";
+            java.sql.PreparedStatement psPersona = con.prepareStatement(sqlPersona);
+            psPersona.setLong(1, Long.parseLong(dni));
+            psPersona.setString(2, nombre);
+            psPersona.setString(3, direccion);
+            psPersona.executeUpdate();
+
+            // Insertamos el telefono
+            String sqlTel = "INSERT INTO telefonos_persona (DNI_P, telefono) VALUES (?, ?)";
+            java.sql.PreparedStatement psTel = con.prepareStatement(sqlTel);
+            psTel.setLong(1, Long.parseLong(dni));
+            psTel.setString(2, telefono);
+            psTel.executeUpdate();
+
+            // Insertamos en la tabla Inquilino
+            String sqlInq = "INSERT INTO inquilino (DNI_P_Inquilino) VALUES (?)";
+            java.sql.PreparedStatement psInq = con.prepareStatement(sqlInq);
+            psInq.setLong(1, Long.parseLong(dni));
+            psInq.executeUpdate();
+
+            //guardamos en la base
+            con.commit();
+
+            JOptionPane.showMessageDialog(this, "Inquilino registrado correctamente");
+
+            IngresoEscribano ventanaEscribano = new IngresoEscribano(idPropiedadSeleccionada, valorMensualPropiedad, Long.parseLong(dni));
+            ventanaEscribano.setLocationRelativeTo(null);
+            ventanaEscribano.setVisible(true);
+            this.dispose();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al registrar inquilino: " + ex.getMessage(), "Error BD", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnCargarInquilinoActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new IngresoInquilino().setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargarInquilino;
+    private javax.swing.JButton btnInquilinoExistente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField textDireccionInquilino;
     private javax.swing.JTextField textDniInquilino;
     private javax.swing.JTextField textNombreInquilino;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-06-2026 a las 21:49:55
+-- Tiempo de generación: 23-06-2026 a las 05:39:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -82,8 +82,20 @@ CREATE TABLE `persona` (
   `DNI_P` bigint(20) NOT NULL,
   `NomyApe_P` varchar(100) NOT NULL,
   `Direccion_P` varchar(150) NOT NULL,
-  `Tipo-P` varchar(100) NOT NULL
+  `Tipo_P` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`DNI_P`, `NomyApe_P`, `Direccion_P`, `Tipo_P`) VALUES
+(12345678, 'Sofía Fernández', 'Pringles 303', 'Propietario'),
+(15890890, 'Ana Martínez', 'Rivadavia 101', 'Propietario'),
+(28456789, 'María Gómez', 'San Martín 456', 'Propietario'),
+(35123456, 'Juan Pérez', 'Mitre 123', 'Propietario'),
+(40123123, 'Lucas Rodríguez', 'Illia 789', 'Propietario'),
+(42567890, 'Pedro López', 'Colón 202', 'Propietario');
 
 -- --------------------------------------------------------
 
@@ -105,6 +117,27 @@ CREATE TABLE `propiedades` (
   `DNI_P_Propietario` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `propiedades`
+--
+
+INSERT INTO `propiedades` (`id_Prop`, `direccion_Prop`, `cod_Tipo_Prop`, `en_Venta`, `en_Alquiler`, `valor_Prop`, `antiguedad_Prop`, `cantAmbientes_Prop`, `superficie_Prop`, `nro_Zona_Ubicada`, `DNI_P_Propietario`) VALUES
+(16, 'Av. Illia 123, Piso 4', 2, 1, 0, 85000, 5, 2, 50, 1, 35123456),
+(17, 'Chacabuco 654', 3, 0, 1, 350000, 12, 3, 120, 2, 28456789),
+(18, 'Rivadavia 450, PB', 6, 0, 1, 150000, 2, 1, 35, 2, 40123123),
+(19, 'San Martín 900', 3, 1, 1, 150000, 20, 4, 150, 2, 15890890),
+(20, 'Caseros 300', 2, 1, 0, 95000, 8, 3, 75, 1, 42567890),
+(21, 'Bolívar 120, Piso 2', 6, 0, 1, 140000, 1, 1, 32, 2, 12345678),
+(22, 'Av. del Viento Chorrillero 2500', 4, 1, 1, 250000, 15, 6, 450, 4, 35123456),
+(23, 'Ruta 20 Km 15', 4, 1, 0, 320000, 10, 5, 800, 4, 28456789),
+(24, 'Calle Los Eucaliptos 45', 1, 1, 0, 180000, 5, 4, 220, 4, 40123123),
+(25, 'Panchomula s/n', 4, 0, 0, 195000, 25, 4, 600, 4, 15890890),
+(26, 'Sucre 200', 1, 1, 0, 65000, 30, 3, 110, 5, 42567890),
+(27, 'Lafinur 800', 1, 0, 1, 280000, 18, 3, 95, 6, 12345678),
+(28, 'Mitre 1500', 1, 0, 1, 220000, 40, 4, 130, 3, 35123456),
+(29, 'Las Heras 750', 5, 1, 1, 110000, 0, 3, 85, 6, 28456789),
+(30, 'Av. Santos Ortiz 5000', 3, 0, 1, 450000, 5, 5, 300, 5, 40123123);
+
 -- --------------------------------------------------------
 
 --
@@ -114,6 +147,18 @@ CREATE TABLE `propiedades` (
 CREATE TABLE `propietario` (
   `DNI_P_Propietario` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `propietario`
+--
+
+INSERT INTO `propietario` (`DNI_P_Propietario`) VALUES
+(12345678),
+(15890890),
+(28456789),
+(35123456),
+(40123123),
+(42567890);
 
 -- --------------------------------------------------------
 
@@ -136,6 +181,18 @@ CREATE TABLE `tipos_propiedad` (
   `cod_Tipo_Prop` int(11) NOT NULL,
   `descripcionTipo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipos_propiedad`
+--
+
+INSERT INTO `tipos_propiedad` (`cod_Tipo_Prop`, `descripcionTipo`) VALUES
+(1, 'Casa'),
+(2, 'Departamento'),
+(3, 'Local Comercial'),
+(4, 'Quinta'),
+(5, 'Dúplex'),
+(6, 'Monoambiente');
 
 -- --------------------------------------------------------
 
@@ -167,6 +224,18 @@ CREATE TABLE `zonas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `zonas`
+--
+
+INSERT INTO `zonas` (`nro_Z`, `nombre_Z`, `descripcion_Z`) VALUES
+(1, 'Centro', 'Zona comercial principal'),
+(2, 'Microcentro', 'Área administrativa central'),
+(3, 'Este', 'Zona este residencial'),
+(4, 'Juana Koslay', 'Zona residencial y de quintas'),
+(5, 'Sur', 'Zona sur comercial y residencial'),
+(6, 'Oeste', 'Zona oeste');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -174,7 +243,7 @@ CREATE TABLE `zonas` (
 -- Indices de la tabla `comprador`
 --
 ALTER TABLE `comprador`
-  ADD UNIQUE KEY `DNI-P-Comprador` (`DNI_P_Comprador`);
+  ADD PRIMARY KEY (`DNI_P_Comprador`);
 
 --
 -- Indices de la tabla `contrato`
@@ -196,7 +265,7 @@ ALTER TABLE `escribano`
 -- Indices de la tabla `inquilino`
 --
 ALTER TABLE `inquilino`
-  ADD UNIQUE KEY `DNI-P-Inquilino` (`DNI_P_Inquilino`);
+  ADD PRIMARY KEY (`DNI_P_Inquilino`);
 
 --
 -- Indices de la tabla `persona`
@@ -209,16 +278,15 @@ ALTER TABLE `persona`
 --
 ALTER TABLE `propiedades`
   ADD PRIMARY KEY (`id_Prop`),
-  ADD UNIQUE KEY `nro-Zona-Ubicada` (`nro_Zona_Ubicada`),
-  ADD UNIQUE KEY `cod_Tipo_Prop` (`cod_Tipo_Prop`),
-  ADD UNIQUE KEY `cod_Tipo_Prop_2` (`cod_Tipo_Prop`),
-  ADD UNIQUE KEY `DNI_P_Propietario` (`DNI_P_Propietario`);
+  ADD KEY `nro_Zona_Ubicada` (`nro_Zona_Ubicada`),
+  ADD KEY `cod_Tipo_Prop` (`cod_Tipo_Prop`),
+  ADD KEY `DNI_P_Propietario` (`DNI_P_Propietario`);
 
 --
 -- Indices de la tabla `propietario`
 --
 ALTER TABLE `propietario`
-  ADD UNIQUE KEY `DNI-P-Propietario` (`DNI_P_Propietario`);
+  ADD PRIMARY KEY (`DNI_P_Propietario`);
 
 --
 -- Indices de la tabla `telefonos_persona`
@@ -253,22 +321,16 @@ ALTER TABLE `zonas`
 --
 
 --
--- AUTO_INCREMENT de la tabla `persona`
---
-ALTER TABLE `persona`
-  MODIFY `DNI_P` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `propiedades`
 --
 ALTER TABLE `propiedades`
-  MODIFY `id_Prop` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_Prop` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `zonas`
 --
 ALTER TABLE `zonas`
-  MODIFY `nro_Z` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `nro_Z` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
