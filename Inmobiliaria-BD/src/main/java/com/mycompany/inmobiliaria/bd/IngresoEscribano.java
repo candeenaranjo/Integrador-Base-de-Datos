@@ -157,7 +157,7 @@ public class IngresoEscribano extends javax.swing.JFrame {
 
     private void btnCargaEscribanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaEscribanoActionPerformed
  
-    // Leemos los campos del formulario
+
     String dni          = textDniEscribano.getText().trim();
     String nombre       = textNombreEscribano.getText().trim();
     String direccion    = textDireccionEscribano.getText().trim();
@@ -165,7 +165,6 @@ public class IngresoEscribano extends javax.swing.JFrame {
     String telefono2    = textTelefonoEscr2.getText().trim();
     String nroMatricula = textNroMatriculaEscr4.getText().trim();
 
-    // Validamos campos obligatorios (telefono2 es opcional)
     if (dni.isEmpty() || nombre.isEmpty() || direccion.isEmpty()
             || telefono1.isEmpty() || nroMatricula.isEmpty()) {
         JOptionPane.showMessageDialog(this,
@@ -183,7 +182,7 @@ public class IngresoEscribano extends javax.swing.JFrame {
 
         long dniLong = Long.parseLong(dni);
 
-        // 1) Insertamos en la tabla Persona
+        // 1) Insertamos en Persona
         String sqlPersona = "INSERT INTO persona (DNI_P, NomyApe_P, Direccion_P, Tipo_P) "
                           + "VALUES (?, ?, ?, 'Escribano')";
         try (java.sql.PreparedStatement psPersona = con.prepareStatement(sqlPersona)) {
@@ -193,7 +192,7 @@ public class IngresoEscribano extends javax.swing.JFrame {
             psPersona.executeUpdate();
         }
 
-        // 2) Insertamos el primer teléfono (obligatorio)
+        // 2) Insertamos telefono 1
         String sqlTel = "INSERT INTO telefonos_persona (DNI_P, telefono) VALUES (?, ?)";
         try (java.sql.PreparedStatement psTel = con.prepareStatement(sqlTel)) {
             psTel.setLong(1, dniLong);
@@ -201,7 +200,7 @@ public class IngresoEscribano extends javax.swing.JFrame {
             psTel.executeUpdate();
         }
 
-        // 3) Insertamos el segundo teléfono solo si fue ingresado
+        // 3) Insertamos telefono 2 si fue ingresado
         if (!telefono2.isEmpty()) {
             try (java.sql.PreparedStatement psTel2 = con.prepareStatement(sqlTel)) {
                 psTel2.setLong(1, dniLong);
@@ -210,25 +209,47 @@ public class IngresoEscribano extends javax.swing.JFrame {
             }
         }
 
-        // 4) Insertamos en la tabla Escribano
-        String sqlEscr = "INSERT INTO escribano (DNI_P_Escribano, Direccion_Estudio_M,Nro_Matricula_E ) "
+        // 4) Insertamos en Escribano
+        String sqlEscr = "INSERT INTO escribano (DNI_P_Escribano, Direccion_Estudio_M, Nro_Matricula_E) "
                        + "VALUES (?, ?, ?)";
         try (java.sql.PreparedStatement psEscr = con.prepareStatement(sqlEscr)) {
             psEscr.setLong(1, dniLong);
-            psEscr.setString(2, direccion);
+            psEscr.setString(2,direccion );
             psEscr.setString(3, nroMatricula);
             psEscr.executeUpdate();
         }
 
-        // Confirmamos la transacción
+        // 5) Insertamos el Contrato
+        // Nro_Serie lo generamos automaticamente como combinacion de idPropiedad + dniInquilino
+        String nroSerie = "C-" + idPropiedadSeleccionada + "-" + dniInquilino;
+        String sqlContrato = "INSERT INTO contrato "
+                + "(Nro_Serie, fechaFirma, fechaOcupacion, fechaDesocupacion, montoMensual, "
+                + "DNI_P_Inquilino_Firma, Nro_Matricula_E_Certifica, id_Prop_Alquilada) "
+                + "VALUES (?, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 YEAR), ?, ?, ?, ?)";
+        try (java.sql.PreparedStatement psCont = con.prepareStatement(sqlContrato)) {
+            psCont.setString(1, nroSerie);
+            psCont.setFloat(2, valorMensualPropiedad);
+            psCont.setLong(3, dniInquilino);
+            psCont.setString(4, nroMatricula);
+            psCont.setInt(5, idPropiedadSeleccionada);
+            psCont.executeUpdate();
+        }
+
+        // 6) Actualizamos la propiedad: ya no está disponible en alquiler
+        String sqlProp = "UPDATE propiedades SET en_Alquiler = 0 WHERE id_Prop = ?";
+        try (java.sql.PreparedStatement psProp = con.prepareStatement(sqlProp)) {
+            psProp.setInt(1, idPropiedadSeleccionada);
+            psProp.executeUpdate();
+        }
+
         con.commit();
 
         JOptionPane.showMessageDialog(this,
-            "Escribano registrado correctamente.",
+            "Escribano y contrato registrados correctamente.",
             "Éxito",
             JOptionPane.INFORMATION_MESSAGE);
 
-        // Abrimos la ventana de contrato pasando todos los datos necesarios
+        // Abrimos ContratoData para mostrar la lista de contratos
         ContratoData ventanaContrato = new ContratoData(
             idPropiedadSeleccionada,
             valorMensualPropiedad,

@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.inmobiliaria.bd;
-
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.SQLException;
+/**
 /**
  *
  * @author maria
@@ -17,7 +20,9 @@ public class ContratoData extends javax.swing.JFrame {
      */
     public ContratoData() {
         initComponents();
-    }
+        cargarTablaContatos();
+
+    }   
     private int idPropiedadSeleccionada;
     private float valorMensualPropiedad;
     private long dniInquilino;
@@ -31,9 +36,62 @@ public class ContratoData extends javax.swing.JFrame {
             this.dniInquilino = dniInquilino;
             this.dniEscribano = dniEscribano;
             this.nroMatricula = nroMatricula;
+cargarTablaContatos();
+        
 }
     //aca hay que cargar las tablas con los contratos de la base de datos
-     private void cargarTablaContatos() {}
+     private void cargarTablaContatos() {
+        try {
+        Connection con = Conexion.getConexion();
+
+        String sql = "SELECT c.Nro_Serie, p.NomyApe_P AS Inquilino, "
+           + "e_persona.NomyApe_P AS Escribano, c.fechaFirma, "
+           + "c.fechaOcupacion, c.fechaDesocupacion, "
+           + "c.montoMensual, c.id_Prop_Alquilada "
+           + "FROM contrato c "
+           + "JOIN persona p ON c.DNI_P_Inquilino_Firma = p.DNI_P "
+           + "JOIN escribano e ON c.Nro_Matricula_E_Certifica = e.Nro_Matricula_E "
+           + "JOIN persona e_persona ON e.DNI_P_Escribano = e_persona.DNI_P";
+
+        String[] columnas = {"Nro Serie", "Inquilino", "Escribano", 
+                             "Fecha Firma", "Fecha Ocupacion", 
+                             "Fecha Desocupacion", "Monto Mensual", "ID Propiedad"};
+
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // bloqueamos edición
+            }
+        };
+
+        jTable1.setModel(modelo);
+
+        java.sql.PreparedStatement ps = con.prepareStatement(sql);
+        java.sql.ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Object[] fila = {
+                rs.getString("Nro_Serie"),
+                rs.getString("Inquilino"),
+                rs.getString("Escribano"),
+                rs.getDate("fechaFirma"),
+                rs.getDate("fechaOcupacion"),
+                rs.getDate("fechaDesocupacion"),
+                rs.getFloat("montoMensual"),
+                rs.getInt("id_Prop_Alquilada")
+            };
+            modelo.addRow(fila);
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this,
+            "Error al cargar contratos: " + ex.getMessage(),
+            "Error BD",
+            JOptionPane.ERROR_MESSAGE);
+    }
+
+
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

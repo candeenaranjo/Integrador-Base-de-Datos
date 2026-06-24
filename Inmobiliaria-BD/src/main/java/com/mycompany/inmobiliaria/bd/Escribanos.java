@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.inmobiliaria.bd;
-
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.SQLException;
 /**
  *
  * @author maria
@@ -17,11 +19,50 @@ public class Escribanos extends javax.swing.JFrame {
      */
     public Escribanos() {
         initComponents();
+        cargarTablaEscribanos(); 
     }
  
     
     //aca hay que cargar las tablas con los escribanos de la base de datos
-     private void cargarTablaEscribanos() {}
+     private void cargarTablaEscribanos() {
+        try {
+            Connection con = Conexion.getConexion();
+
+             String sql = "SELECT e.DNI_P_Escribano, p.NomyApe_P, p.Direccion_P, "
+                   + "e.Nro_Matricula_E, e.Direccion_Estudio_M "
+                   + "FROM escribano e "
+                   + "JOIN persona p ON e.DNI_P_Escribano = p.DNI_P";
+
+            java.sql.PreparedStatement ps = con.prepareStatement(sql);
+            java.sql.ResultSet rs = ps.executeQuery();
+
+            // Definimos las columnas de la tabla
+            String[] columnas = {"DNI", "Nombre y Apellido", "Dirección", "Nro Matrícula", "Dirección Estudio"};
+            javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(columnas, 0);
+
+        // Llenamos la tabla con los datos
+            while (rs.next()) {
+                Object[] fila = {
+                    rs.getLong("DNI_P_Escribano"),
+                    rs.getString("NomyApe_P"),
+                    rs.getString("Direccion_P"),
+                    rs.getString("Nro_Matricula_E"),
+                    rs.getString("Direccion_Estudio_M")
+                };
+            modelo.addRow(fila);
+        }
+
+            tablaEscribanos.setModel(modelo);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this,
+            "Error al cargar escribanos: " + ex.getMessage(),
+            "Error BD",
+            JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

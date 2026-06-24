@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.inmobiliaria.bd;
-
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.SQLException;
+/**
 /**
  *
  * @author maria
@@ -17,10 +20,46 @@ public class Inquilinos extends javax.swing.JFrame {
      */
     public Inquilinos() {
         initComponents();
+        cargarTablaInquilinos();
     }
 
     //aca hay que cargar las tablas con los inquilinos de la base de datos
-     private void cargarTablaInquilinos() {}
+private void cargarTablaInquilinos() {
+    try {
+        Connection con = Conexion.getConexion();
+
+        String sql = "SELECT i.DNI_P_Inquilino, p.NomyApe_P, p.Direccion_P, t.telefono "
+                   + "FROM inquilino i "
+                   + "JOIN persona p ON i.DNI_P_Inquilino = p.DNI_P "
+                   + "LEFT JOIN telefonos_persona t ON i.DNI_P_Inquilino = t.DNI_P";
+
+        java.sql.PreparedStatement ps = con.prepareStatement(sql);
+        java.sql.ResultSet rs = ps.executeQuery();
+
+        // Definimos las columnas de la tabla
+        String[] columnas = {"DNI", "Nombre y Apellido", "Dirección", "Teléfono"};
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(columnas, 0);
+
+        // Llenamos la tabla con los datos
+        while (rs.next()) {
+            Object[] fila = {
+                rs.getLong("DNI_P_Inquilino"),
+                rs.getString("NomyApe_P"),
+                rs.getString("Direccion_P"),
+                rs.getString("telefono")
+            };
+            modelo.addRow(fila);
+        }
+
+        tablaInquilinos.setModel(modelo);
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this,
+            "Error al cargar inquilinos: " + ex.getMessage(),
+            "Error BD",
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
