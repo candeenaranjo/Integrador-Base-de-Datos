@@ -65,6 +65,7 @@ public class Inmobiliaria extends javax.swing.JFrame {
         Escritorio.add(btnCompradores, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 500, -1, -1));
 
         btnAlquileres.setText("ALQUILERES");
+        btnAlquileres.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAlquileres.addActionListener(this::btnAlquileresActionPerformed);
         Escritorio.add(btnAlquileres, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 100, -1));
 

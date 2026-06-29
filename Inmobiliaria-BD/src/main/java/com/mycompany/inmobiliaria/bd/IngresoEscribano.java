@@ -3,15 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.inmobiliaria.bd;
+
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.SQLException;
+
 /**
  *
  * @author maria
  */
 public class IngresoEscribano extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IngresoEscribano.class.getName());
 
     /**
@@ -20,10 +22,11 @@ public class IngresoEscribano extends javax.swing.JFrame {
     private int idPropiedadSeleccionada;
     private float valorMensualPropiedad;
     private long dniInquilino;
-    
+
     public IngresoEscribano() {
         initComponents();
     }
+
     public IngresoEscribano(int idPropiedadSeleccionada, float valorMensualPropiedad, long dniInquilino) {
         initComponents();
         this.idPropiedadSeleccionada = idPropiedadSeleccionada;
@@ -66,7 +69,7 @@ public class IngresoEscribano extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ingresar Datos del Escribano");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jLabel4.setBackground(new java.awt.Color(204, 204, 204));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -121,10 +124,10 @@ public class IngresoEscribano extends javax.swing.JFrame {
         jPanel1.add(btnCargaEscribano, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
         btnEcribanoExistente.setText("Escribano Existente");
-        jPanel1.add(btnEcribanoExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, -1, -1));
+        jPanel1.add(btnEcribanoExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/fondoborroso 1.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, -90, 550, 610));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, -90, 510, 580));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -156,139 +159,129 @@ public class IngresoEscribano extends javax.swing.JFrame {
     }//GEN-LAST:event_textTelofonoEscrActionPerformed
 
     private void btnCargaEscribanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaEscribanoActionPerformed
- 
 
-    String dni          = textDniEscribano.getText().trim();
-    String nombre       = textNombreEscribano.getText().trim();
-    String direccion    = textDireccionEscribano.getText().trim();
-    String telefono1    = textTelofonoEscr.getText().trim();
-    String telefono2    = textTelefonoEscr2.getText().trim();
-    String nroMatricula = textNroMatriculaEscr4.getText().trim();
+        String dni = textDniEscribano.getText().trim();
+        String nombre = textNombreEscribano.getText().trim();
+        String direccion = textDireccionEscribano.getText().trim();
+        String telefono1 = textTelofonoEscr.getText().trim();
+        String telefono2 = textTelefonoEscr2.getText().trim();
+        String nroMatricula = textNroMatriculaEscr4.getText().trim();
 
-    if (dni.isEmpty() || nombre.isEmpty() || direccion.isEmpty()
-            || telefono1.isEmpty() || nroMatricula.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-            "Por favor, complete todos los campos obligatorios.",
-            "Faltan datos",
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    Connection con = null;
-
-    try {
-        con = Conexion.getConexion();
-        con.setAutoCommit(false);
-
-        long dniLong = Long.parseLong(dni);
-
-        // 1) Insertamos en Persona
-        String sqlPersona = "INSERT INTO persona (DNI_P, NomyApe_P, Direccion_P, Tipo_P) "
-                          + "VALUES (?, ?, ?, 'Escribano')";
-        try (java.sql.PreparedStatement psPersona = con.prepareStatement(sqlPersona)) {
-            psPersona.setLong(1, dniLong);
-            psPersona.setString(2, nombre);
-            psPersona.setString(3, direccion);
-            psPersona.executeUpdate();
+        if (dni.isEmpty() || nombre.isEmpty() || direccion.isEmpty()
+                || telefono1.isEmpty() || nroMatricula.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, complete todos los campos obligatorios.",
+                    "Faltan datos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-        // 2) Insertamos telefono 1
-        String sqlTel = "INSERT INTO telefonos_persona (DNI_P, telefono) VALUES (?, ?)";
-        try (java.sql.PreparedStatement psTel = con.prepareStatement(sqlTel)) {
-            psTel.setLong(1, dniLong);
-            psTel.setString(2, telefono1);
-            psTel.executeUpdate();
-        }
+        Connection con = null;
 
-        // 3) Insertamos telefono 2 si fue ingresado
-        if (!telefono2.isEmpty()) {
-            try (java.sql.PreparedStatement psTel2 = con.prepareStatement(sqlTel)) {
-                psTel2.setLong(1, dniLong);
-                psTel2.setString(2, telefono2);
-                psTel2.executeUpdate();
+        try {
+            con = Conexion.getConexion();
+            con.setAutoCommit(false);
+
+            long dniLong = Long.parseLong(dni);
+
+            // 1) Insertamos en Persona
+            String sqlPersona = "INSERT INTO persona (DNI_P, NomyApe_P, Direccion_P, Tipo_P) "
+                    + "VALUES (?, ?, ?, 'Escribano')";
+            try (java.sql.PreparedStatement psPersona = con.prepareStatement(sqlPersona)) {
+                psPersona.setLong(1, dniLong);
+                psPersona.setString(2, nombre);
+                psPersona.setString(3, direccion);
+                psPersona.executeUpdate();
+            }
+
+            // 2) Insertamos telefono 1
+            String sqlTel = "INSERT INTO telefonos_persona (DNI_P, telefono) VALUES (?, ?)";
+            try (java.sql.PreparedStatement psTel = con.prepareStatement(sqlTel)) {
+                psTel.setLong(1, dniLong);
+                psTel.setString(2, telefono1);
+                psTel.executeUpdate();
+            }
+
+            // 3) Insertamos telefono 2 si fue ingresado
+            if (!telefono2.isEmpty()) {
+                try (java.sql.PreparedStatement psTel2 = con.prepareStatement(sqlTel)) {
+                    psTel2.setLong(1, dniLong);
+                    psTel2.setString(2, telefono2);
+                    psTel2.executeUpdate();
+                }
+            }
+
+            // 4) Insertamos en Escribano
+            String sqlEscr = "INSERT INTO escribano (DNI_P_Escribano, Direccion_Estudio_M, Nro_Matricula_E) "
+                    + "VALUES (?, ?, ?)";
+            try (java.sql.PreparedStatement psEscr = con.prepareStatement(sqlEscr)) {
+                psEscr.setLong(1, dniLong);
+                psEscr.setString(2, direccion);
+                psEscr.setString(3, nroMatricula);
+                psEscr.executeUpdate();
+            }
+
+            // 5) Insertamos el Contrato
+            // Nro_Serie lo generamos automaticamente como combinacion de idPropiedad + dniInquilino
+            String nroSerie = "C-" + idPropiedadSeleccionada + "-" + dniInquilino;
+            String sqlContrato = "INSERT INTO contrato "
+                    + "(Nro_Serie, fechaFirma, fechaOcupacion, fechaDesocupacion, montoMensual, "
+                    + "DNI_P_Inquilino_Firma, Nro_Matricula_E_Certifica, id_Prop_Alquilada) "
+                    + "VALUES (?, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 YEAR), ?, ?, ?, ?)";
+            try (java.sql.PreparedStatement psCont = con.prepareStatement(sqlContrato)) {
+                psCont.setString(1, nroSerie);
+                psCont.setFloat(2, valorMensualPropiedad);
+                psCont.setLong(3, dniInquilino);
+                psCont.setString(4, nroMatricula);
+                psCont.setInt(5, idPropiedadSeleccionada);
+                psCont.executeUpdate();
+            }
+
+            // 6) Actualizamos la propiedad: ya no está disponible en alquiler
+            String sqlProp = "UPDATE propiedades SET en_Alquiler = 0 WHERE id_Prop = ?";
+            try (java.sql.PreparedStatement psProp = con.prepareStatement(sqlProp)) {
+                psProp.setInt(1, idPropiedadSeleccionada);
+                psProp.executeUpdate();
+            }
+
+            con.commit();
+            JOptionPane.showMessageDialog(this, "Esribano creado correctamente\n");
+
+            JOptionPane.showMessageDialog(this,"Se a creado el Contrato\n","Puede ver el contrato en la seccion CONTRATOS",JOptionPane.INFORMATION_MESSAGE);
+
+            Alquileres ventanaAlquileres = new Alquileres();
+            ventanaAlquileres.setLocationRelativeTo(null);
+            ventanaAlquileres.setVisible(true);
+            this.dispose();
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "El DNI debe ser un número válido.",
+                    "Error de formato",
+                    JOptionPane.ERROR_MESSAGE);
+
+        } catch (SQLException ex) {
+            if (con != null) {
+                try {
+                    con.rollback();
+                } catch (SQLException rollbackEx) {
+                    logger.log(java.util.logging.Level.SEVERE, "Error en rollback", rollbackEx);
+                }
+            }
+            JOptionPane.showMessageDialog(this,
+                    "Error al registrar escribano: " + ex.getMessage(),
+                    "Error BD",
+                    JOptionPane.ERROR_MESSAGE);
+
+        } finally {
+            if (con != null) {
+                try {
+                    con.setAutoCommit(true);
+                } catch (SQLException e) {
+                    logger.log(java.util.logging.Level.SEVERE, "Error restaurando autocommit", e);
+                }
             }
         }
-
-        // 4) Insertamos en Escribano
-        String sqlEscr = "INSERT INTO escribano (DNI_P_Escribano, Direccion_Estudio_M, Nro_Matricula_E) "
-                       + "VALUES (?, ?, ?)";
-        try (java.sql.PreparedStatement psEscr = con.prepareStatement(sqlEscr)) {
-            psEscr.setLong(1, dniLong);
-            psEscr.setString(2,direccion );
-            psEscr.setString(3, nroMatricula);
-            psEscr.executeUpdate();
-        }
-
-        // 5) Insertamos el Contrato
-        // Nro_Serie lo generamos automaticamente como combinacion de idPropiedad + dniInquilino
-        String nroSerie = "C-" + idPropiedadSeleccionada + "-" + dniInquilino;
-        String sqlContrato = "INSERT INTO contrato "
-                + "(Nro_Serie, fechaFirma, fechaOcupacion, fechaDesocupacion, montoMensual, "
-                + "DNI_P_Inquilino_Firma, Nro_Matricula_E_Certifica, id_Prop_Alquilada) "
-                + "VALUES (?, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 YEAR), ?, ?, ?, ?)";
-        try (java.sql.PreparedStatement psCont = con.prepareStatement(sqlContrato)) {
-            psCont.setString(1, nroSerie);
-            psCont.setFloat(2, valorMensualPropiedad);
-            psCont.setLong(3, dniInquilino);
-            psCont.setString(4, nroMatricula);
-            psCont.setInt(5, idPropiedadSeleccionada);
-            psCont.executeUpdate();
-        }
-
-        // 6) Actualizamos la propiedad: ya no está disponible en alquiler
-        String sqlProp = "UPDATE propiedades SET en_Alquiler = 0 WHERE id_Prop = ?";
-        try (java.sql.PreparedStatement psProp = con.prepareStatement(sqlProp)) {
-            psProp.setInt(1, idPropiedadSeleccionada);
-            psProp.executeUpdate();
-        }
-
-        con.commit();
-
-        JOptionPane.showMessageDialog(this,
-            "Escribano y contrato registrados correctamente.",
-            "Éxito",
-            JOptionPane.INFORMATION_MESSAGE);
-
-        // Abrimos ContratoData para mostrar la lista de contratos
-        ContratoData ventanaContrato = new ContratoData(
-            idPropiedadSeleccionada,
-            valorMensualPropiedad,
-            dniInquilino,
-            dniLong,
-            nroMatricula
-        );
-        ventanaContrato.setLocationRelativeTo(null);
-        ventanaContrato.setVisible(true);
-        this.dispose();
-
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this,
-            "El DNI debe ser un número válido.",
-            "Error de formato",
-            JOptionPane.ERROR_MESSAGE);
-
-    } catch (SQLException ex) {
-        if (con != null) {
-            try {
-                con.rollback();
-            } catch (SQLException rollbackEx) {
-                logger.log(java.util.logging.Level.SEVERE, "Error en rollback", rollbackEx);
-            }
-        }
-        JOptionPane.showMessageDialog(this,
-            "Error al registrar escribano: " + ex.getMessage(),
-            "Error BD",
-            JOptionPane.ERROR_MESSAGE);
-
-    } finally {
-        if (con != null) {
-            try {
-                con.setAutoCommit(true);
-            } catch (SQLException e) {
-                logger.log(java.util.logging.Level.SEVERE, "Error restaurando autocommit", e);
-            }
-        }
-    }
     }//GEN-LAST:event_btnCargaEscribanoActionPerformed
 
     /**

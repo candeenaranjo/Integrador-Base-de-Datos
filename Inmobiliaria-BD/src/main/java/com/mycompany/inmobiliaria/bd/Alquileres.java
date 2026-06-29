@@ -130,6 +130,7 @@ public class Alquileres extends javax.swing.JFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, -1, -1));
 
         btnContratos.setText("CONTRATOS");
+        btnContratos.addActionListener(this::btnContratosActionPerformed);
         jPanel2.add(btnContratos, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 460, -1, -1));
 
         fondoborroso1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/fondoborroso 1.png"))); // NOI18N
@@ -177,8 +178,6 @@ public class Alquileres extends javax.swing.JFrame {
                     "Atención",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Para continuar con el contrato se le pedira\n el ingreso del inquilino y del escribano");
-
 
             int idPropiedad = (int) tablaPropiedades.getValueAt(filaSeleccionada, 0);
             float valorMensual = (float) tablaPropiedades.getValueAt(filaSeleccionada, 4);
@@ -192,6 +191,14 @@ public class Alquileres extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnCrearContratoActionPerformed
+
+    private void btnContratosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratosActionPerformed
+        // TODO add your handling code here:
+        ContratoData ventanaContrato = new ContratoData();
+        ventanaContrato.setLocationRelativeTo(null);
+        ventanaContrato.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnContratosActionPerformed
 
     /**
      * @param args the command line arguments

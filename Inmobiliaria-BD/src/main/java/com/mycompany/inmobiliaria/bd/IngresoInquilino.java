@@ -65,7 +65,7 @@ public class IngresoInquilino extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Ingresar Datos del Inquilino");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(204, 204, 204));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -115,7 +115,7 @@ public class IngresoInquilino extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/fondoborroso 1.png"))); // NOI18N
         jLabel1.setText("  ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, -100, 550, 630));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-150, -100, 510, 560));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -183,7 +183,7 @@ public class IngresoInquilino extends javax.swing.JFrame {
             //guardamos en la base
             con.commit();
 
-            JOptionPane.showMessageDialog(this, "Inquilino registrado correctamente");
+            JOptionPane.showMessageDialog(this, "Inquilino registrado correctamente. Ahora se le pedira los datos del Escribano");
 
             IngresoEscribano ventanaEscribano = new IngresoEscribano(idPropiedadSeleccionada, valorMensualPropiedad, Long.parseLong(dni));
             ventanaEscribano.setLocationRelativeTo(null);
